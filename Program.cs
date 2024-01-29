@@ -1,21 +1,31 @@
 ﻿using System;
+using System.Xml.Linq;
 namespace Fallout3Enemies
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Danger: enemies in the area");
+            Console.WriteLine("This is your character");
+            You YourCharacter = new You("ClaudioBisio", 4, 4, 5, 1, 9, 6, 6);
+            SideQuest Start = new SideQuest("You see 2 deathclaws and 2 ghouls fighting in the distance, near them there is a scared person");
             Enemy AdultDeathclaw = new Enemy("Deathclaw", 550, 40, 75, 20, 90);
             Enemy YoungDeathclaw = new Enemy("Young Deathclaw", 200, 20, 50, 15, 50);
             Enemy Ghoul = new Enemy("Ghoul", 120, 9, 35, 11, 30);
             Enemy GlowingOne = new Enemy("GlowingOne", 250, 25, 55, 17, 38);
-            You YourCharacter = new You("ClaudioBisio", 4, 4, 5, 1, 9, 6, 6);
+            SideQuest NpcDialogue = new SideQuest("You hear the person in the distance shouting something");
+            Npc Elio = new Npc("Elio", 30, 2, "Please help me!", "The Biggest Magnum");
+            SideQuest Choice = new SideQuest("Nope, i return after your death for the reward, bye");
+
+            YourCharacter.ShowMainCharacter();
+            Start.QuestText();
             AdultDeathclaw.ShowStats();
             YoungDeathclaw.ShowStats();
             Ghoul.ShowStats();
             GlowingOne.ShowStats();
-            YourCharacter.ShowMainCharacter();
+            NpcDialogue.QuestText();
+            Elio.SideQuest();
+            Choice.QuestText();
         }
     }
 }
@@ -100,3 +110,50 @@ public class You
     }
 }
 
+public class Npc
+{
+    public string _name;
+    public int _health;
+    public int _protection;
+    public string _dialogue;
+    public string _reward;
+
+    public string Name;
+    public int Health;
+    public int Protection;
+    public string Dialogue;
+    public string Reward;
+    public Npc(string name, int health, int protection, string dialogue, string reward)
+    {
+        Name = name;
+        Health = health;
+        Protection = protection;
+        Dialogue = dialogue;
+        Reward = reward;
+    }
+
+    public void SideQuest()
+    {
+        Console.WriteLine(Name);
+        Console.WriteLine(Health.ToString() + "HP");
+        Console.WriteLine(Protection.ToString() + "DEF");
+        Console.WriteLine("Elio:" + Dialogue.ToString());
+        Console.WriteLine("Reward:" + Reward.ToString());
+    }
+
+}
+
+public class SideQuest
+{
+    public string _text;
+    public string Text;
+
+    public SideQuest(string text)
+    {
+        Text = text;
+    }
+    public void QuestText()
+    {
+        Console.WriteLine(Text);
+    }
+}
